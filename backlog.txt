@@ -1,0 +1,4 @@
+
+animate a player across the map.
+adjust framerate/movement speeds.
+use cursor keys to move the player.

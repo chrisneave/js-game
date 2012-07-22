@@ -1,0 +1,15 @@
+Zombie game
+
+player has to move from start position to end position without touching a zombie to win.
+
+player can move in all eight directions.
+
+zombies move slower than the player.
+zombies either (in order of priority):
+- towards the player
+- towards other zombies
+- move in random patterns
+
+zombies have line of sight in a cone shape in front of them.
+zombies have short range hearing all round.
+hearing detects movement by the player or other zombies.
