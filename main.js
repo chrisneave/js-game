@@ -11,7 +11,7 @@ var player = {
     y: 150,
     w: 20,
     h: 20,
-    d: "e"
+    d: ""
 }
 
 var timer;
@@ -37,30 +37,59 @@ function redrawGameField()
     var ctx = gf.getContext("2d");
     ctx.clearRect(0, 0, gf.width, gf.height);
 
+	// Clear the game field.
     ctx.fillStyle = "rgba(255, 0, 0)";
-    var playerSpeed = document.getElementById("playerSpeed");
-
-    // Handle player direction
-    if (player.x >= gf.width - player.w)
-    {
-        player.d = "w";
-    }
-    else if (player.x < 0)
-    {
-        player.d = "e";
-    }
-
-    // Increment x coordinate based on direction and speed.
-    switch(player.d)
-    {
-        case "e":
-            player.x += parseInt(playerSpeed.value);
-            break;
-        case "w":
-            player.x -= parseInt(playerSpeed.value);
-            break;
-    }
 
     // Render the player.
     ctx.fillRect(player.x, player.y, player.w, player.h);
+}
+
+function hitTest()
+{
+    var gf = document.getElementById("gamefield");
+	if ((player.x >= gf.width - player.w) || (player.x < 0))
+    {
+    	return true;
+    }
+
+    if ((player.y >= gf.height - player.h) || (player.y < 0))
+    {
+    	return true;
+    }
+    
+    return false;
+}
+
+// Handle presses of the cursor keys to change the direction of the square.
+window.onkeydown = function(event)
+{
+	var key = event.keyCode;
+	var log = document.getElementById("log");
+	log.innerHTML = "Key press = " + key;
+
+    var playerSpeed = document.getElementById("playerSpeed");
+
+    if (!hitTest() && !isNaN(parseInt(playerSpeed.value))) // Did we hit the boundary of the play field.
+    {
+		switch (key)
+		{
+			case 37: // Left
+	            player.x -= parseInt(playerSpeed.value);
+				break;
+			case 38: // Up
+	            player.y -= parseInt(playerSpeed.value);
+				break;
+			case 39: // Right
+	            player.x += parseInt(playerSpeed.value);
+				break;
+			case 40: // Down
+	            player.y += parseInt(playerSpeed.value);
+				break;
+		}
+	}
+}
+
+window.onkeyup = function(event)
+{
+	
 }
